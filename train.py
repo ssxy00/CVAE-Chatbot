@@ -85,7 +85,6 @@ def cli_main():
     parser.add_argument("--gradient_accumulate_steps", default=1, type=int, help="accumulate gradient on several steps")
     parser.add_argument("--clip_grad", type=float, default=1.0, help="clip gradient threshold")
     parser.add_argument("--save_model_dir", default="./checkpoints", help="path to save model checkpoints")
-    parser.add_argument("--log_dir", default="", help="path to save logs, no log output by default")
     parser.add_argument("--save_interval", default=1)
     parser.add_argument("--model_type", type=str, default="compressed_cvae",
                         help="decoder, cvae_memory, cvae_embedding, compressed_decoder or compressed_cvae")

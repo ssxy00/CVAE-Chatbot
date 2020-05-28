@@ -11,8 +11,6 @@ from tqdm import tqdm
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
-from tensorboardX import SummaryWriter
-
 from transformers import AdamW
 
 from cvae_chatbot.trainers.linear_decay_schedule import LinearDecaySchedule
@@ -47,8 +45,6 @@ class CVAETrainer:
         # using linear decay learning rate schedule
         self.optimizer = LinearDecaySchedule(total_steps, lr, base_optimizer)
 
-        # log
-        self.writer = SummaryWriter(args.log_dir) if args.log_dir else None
 
     def state_dict(self):
         return {'model': self.model.state_dict(),
@@ -102,14 +98,7 @@ class CVAETrainer:
                                    'bow_loss': bow_loss.item(),
                                    'ave_bow_loss': ave_bow_loss,
                                    'lr': self.optimizer.param_groups[0]['lr']})
-            if self.writer is not None:
-                self.writer.add_scalar("Train/seq_loss", seq_loss.item(), (epoch - 1) * n_samples + i)
-                self.writer.add_scalar("Train/ave_seq_loss", ave_seq_loss, (epoch - 1) * n_samples + i)
-                self.writer.add_scalar("Train/kl_loss", kl_loss.item(), (epoch - 1) * n_samples + i)
-                self.writer.add_scalar("Train/ave_kl_loss", ave_kl_loss, (epoch - 1) * n_samples + i)
-                self.writer.add_scalar("Train/bow_loss", bow_loss.item(), (epoch - 1) * n_samples + i)
-                self.writer.add_scalar("Train/ave_bow_loss", ave_bow_loss, (epoch - 1) * n_samples + i)
-                self.writer.add_scalar("Train/lr", self.optimizer.param_groups[0]['lr'], (epoch - 1) * n_samples + i)
+
 
     def _eval_valid(self, epoch):
         self.model.eval()
@@ -148,14 +137,6 @@ class CVAETrainer:
                                        'bow_loss': bow_loss.item(),
                                        'ave_bow_loss': ave_bow_loss
                                        })
-
-                if self.writer is not None:
-                    self.writer.add_scalar("Valid/seq_loss", seq_loss.item(), (epoch - 1) * n_samples + i)
-                    self.writer.add_scalar("Valid/ave_seq_loss", ave_seq_loss, (epoch - 1) * n_samples + i)
-                    self.writer.add_scalar("Valid/kl_loss", kl_loss.item(), (epoch - 1) * n_samples + i)
-                    self.writer.add_scalar("Valid/ave_kl_loss", ave_kl_loss, (epoch - 1) * n_samples + i)
-                    self.writer.add_scalar("Valid/bow_loss", bow_loss.item(), (epoch - 1) * n_samples + i)
-                    self.writer.add_scalar("Valid/ave_bow_loss", ave_bow_loss, (epoch - 1) * n_samples + i)
 
     def train(self, last_epoch=0):
         print('begin to train')

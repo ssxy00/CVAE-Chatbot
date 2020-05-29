@@ -17,7 +17,7 @@ This project combines [NeuralDialog-CVAE](https://github.com/snakeztc/NeuralDial
 To install the requried packages with `conda`, you can run the following script:
 1. clone the repo
 ```
-https://github.com/ssxy00/CVAE-Chatbot
+git clone https://github.com/ssxy00/CVAE-Chatbot
 cd CVAE-Chatbot
 ```
 2. create virtual environment(optional)

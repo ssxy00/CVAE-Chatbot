@@ -48,17 +48,14 @@ def main(args):
     average_distinct_1 = 0.
     average_distinct_2 = 0.
     average_entropy_4 = 0.
-    average_f1 = 0.
     with jsonlines.open(args.eval_file) as reader:
         for idx, row in enumerate(tqdm(reader)):
             average_distinct_1 = (average_distinct_1 * idx + eval_distinct_k(row["predict_responses"], 1)) / (idx + 1)
             average_distinct_2 = (average_distinct_2 * idx + eval_distinct_k(row["predict_responses"], 2)) / (idx + 1)
             average_entropy_4 = (average_entropy_4 * idx + eval_entropy_k(row["predict_responses"], 4)) / (idx + 1)
-            average_f1 = (average_f1 * idx + sum(row["predict_f1s"]) / len(row["predict_f1s"])) / (idx + 1)
     print(f"distinct 1: {average_distinct_1}")
     print(f"distinct 2: {average_distinct_2}")
     print(f"entropy 4: {average_entropy_4}")
-    print(f"f1: {average_f1}")
 
 
 def cli_main():

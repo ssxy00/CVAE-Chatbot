@@ -6,6 +6,7 @@ This project combines [NeuralDialog-CVAE](https://github.com/snakeztc/NeuralDial
 + [(Li et al., 2020)](https://arxiv.org/abs/2004.04092) for combination method
 + [transfer-learning-conv-ai](https://github.com/huggingface/transfer-learning-conv-ai) for baseline
 + [(Ippolito et al., 2019)](https://arxiv.org/abs/1906.06362) for diversity evaluation
++ [(transformer_chatbot)](https://github.com/atselousov/transformer_chatbot) for beam search
 
 ## Environment
 + python == 3.6.8
@@ -84,7 +85,7 @@ wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-vocab.json
 wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-merges.txt
 # rename files
 mv gpt2-vocab.json vocab.json
-mv gpt2-merges.txt merge.txt
+mv gpt2-merges.txt merges.txt
 ```
 
 ### train
@@ -149,7 +150,7 @@ N_OUTPUTS={number of candidates to predict}
 python evaluation/predict.py \
 --checkpoint_path $CHECKPOINT_PATH \
 --model_type $MODEL_TYPE \
---output_path #OUTPUT_PATH \
+--output_path $OUTPUT_PATH \
 --n_outputs $N_OUTPUTS
 ```
 You can set the following evaluation arguments:

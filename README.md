@@ -59,7 +59,7 @@ export PYTHONPATH=./
 RAW_DATA=/path/to/raw/dataset/file
 CACHE_DATA=/path/to/save/processed/dataset/file
 GPT2_VOCAB_PATH=/path/to/gpt2/tokenizer/files
-python preprocess_data.py --raw_data $RAW_DATA --cache_data $CACHE_DATA --gpt2_vocab_path $GPT2_VOCAB_PATH
+python ./prepare_data/preprocess_data.py --raw_data $RAW_DATA --cache_data $CACHE_DATA --gpt2_vocab_path $GPT2_VOCAB_PATH
 ```
 
 

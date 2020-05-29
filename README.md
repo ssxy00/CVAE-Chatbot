@@ -7,7 +7,7 @@ This project combines [NeuralDialog-CVAE](https://github.com/snakeztc/NeuralDial
 + [transfer-learning-conv-ai](https://github.com/huggingface/transfer-learning-conv-ai) for baseline
 + [(Ippolito et al., 2019)](https://arxiv.org/abs/1906.06362) for diversity evaluation
 
-## Enironment
+## Environment
 + python == 3.6.8
 + pytorch==1.2.0
 + transformers==2.5.1
@@ -38,7 +38,30 @@ The dataset used in this project is [PersonaChat Dataset](https://arxiv.org/abs/
 
 The easiest way to prepare data is to download my processed dataset [here](https://drive.google.com/file/d/1qYgbmryXFbqGZ8TEq5kiAf-PxCynNU2z/view?usp=sharing). After that, pleast unzip files into `./datasets`.
 
-TODO convai2
+PersonaChat Dataset also provides other datasets, such as `train_self_revised_no_cands.txt` of which persona is revised. If you want to use these datasets, you need to:
++ download ConvAI2 dataset
+The dataset is available in [ParlAI](https://github.com/facebookresearch/ParlAI), so first install ParlAI:
+```
+git clone https://github.com/facebookresearch/ParlAI
+cd ParlAI
+# ParlAI now requires PyTorch==1.4, so revert to history vesion
+git reset --hard 1e905fec8ef4876a07305f19c3bbae633e8b33af
+# then download data
+python examples/display_data.py --task convai2 --datatype train
+```
+After running this script, a folder `ConvAI2` containing dataset files will be created in `ParlAI/data/`.
+
++ process data
+Then you can process dataset with following script:
+```
+# Run this script in the root directory of this repo
+export PYTHONPATH=./
+RAW_DATA=/path/to/raw/dataset/file
+CACHE_DATA=/path/to/save/processed/dataset/file
+GPT2_VOCAB_PATH=/path/to/gpt2/tokenizer/files
+python preprocess_data.py --raw_data $RAW_DATA --cache_data $CACHE_DATA --gpt2_vocab_path $GPT2_VOCAB_PATH
+```
+
 
 ### prepare pretrained gpt2 model
 The project uses GPT2 pretrained model provided by [Huggingface](https://huggingface.co/transformers/index.html), so you need to download it in advance. You can run the following script to download `gpt2` model:

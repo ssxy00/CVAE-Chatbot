@@ -2,7 +2,7 @@
 # @Time        : 2020/5/24 22:44
 # @Author      : ssxy00
 # @File        : predict_utils.py
-# @Description :
+# @Description : beam_search function is modified from # modified from https://github.com/atselousov/transformer_chatbot/blob/agent/model/transformer_model.py
 
 from collections import Counter
 import torch
@@ -19,7 +19,6 @@ def compute_f1(gold_list, predict_list):
 
 
 def beam_search(input_ids, type_ids, vocab, model, max_len, beam_size, latent_sample=None):
-
     with torch.no_grad():
         batch_size = input_ids.shape[0]
         device = input_ids.device
